@@ -47,7 +47,6 @@
                             <select class="form-select border-success fw-bold" id="filterTahun" onchange="filterDataTahunan()">
                                 <option value="2026" selected>Tahun 2026</option>
                                 <option value="2025">Tahun 2025</option>
-                                <option value="2024">Tahun 2024</option>
                             </select>
                         </div>
                     </div>
@@ -63,7 +62,7 @@
                         <div class="card p-3 card-menu border-start border-warning border-4">
                             <h6>Kencleng (Bersih 90%)</h6>
                             <h4 class="fw-bold text-warning" id="rekapKencleng">Rp 0</h4>
-                            <small class="text-muted" id="rekapKenclengMuzaki">Hak Petugas (10%): Rp 0</small>
+                            <small class="text-muted fw-semibold" id="rekapKenclengMuzaki">Hak Petugas (10%): Rp 0</small>
                         </div>
                     </div>
                     
@@ -128,36 +127,35 @@
 
                                 <div class="mb-3" id="boxPenyetor">
                                     <label for="penyetor" class="form-label fw-semibold">Nama Petugas Penyetor / Penarik</label>
-                                    <select class="form-select" id="penyetor" onchange="cekPenyetorLainnya()">
+                                    <select class="form-select" id="penyetor" onchange="cekPenyetorLainnya()" required>
                                         <option value="" disabled selected>-- Pilih Nama Petugas --</option>
-                                        <option value="Bawon">Petugas 1</option>
-                                        <option value="Mega">Petugas 2</option>
-                                        <option value="Tatik">Petugas 3</option>
-                                        <option value="Sri - Imah">Petugas 4</option>
-                                        <option value="Slamet">Petugas 5</option>
-                                        <option value="Lis - Sih">Petugas 6</option>
-                                        <option value="Petugas 7">Gani</option>
-                                        <option value="Petugas 8">Hasan</option>
-                                        <option value="Petugas 9">Irfan</option>
-                                        <option value="Petugas 10">Joko</option>
-                                        <option value="Petugas 11">Kurniawan</option>
-                                        <option value="Petugas 12">Lukman</option>
-                                        <option value="Petugas 13">Maman</option>
-                                        <option value="Petugas 14">Naufal</option>
-                                        <option value="Petugas 15">Oki</option>
-                                        <option value="Lain-lain">Lain-lain (Ketik Nama Manual)</option>
+                                        <option value="Bawon">Bawon</option>
+                                        <option value="Mega">Mega</option>
+                                        <option value="Tatik">Tatik</option>
+                                        <option value="Lis-Sih">Lis-Sih</option>
+                                        <option value="Sri-Imah">Sri-Imah</option>
+                                        <option value="Slamet">Slamet</option>
+                                        <option value="Restiyana">Restiyana</option>
+                                        <option value="Endang-Uti">Endang-Uti</option>
+                                        <option value="Fara">Fara</option>
+                                        <option value="Udi">Udi</option>
+                                        <option value="Muhyasir">Muhyasir</option>
+                                        <option value="Agus">Agus</option>
+                                        <option value="Neva">Neva</option>
+                                        <option value="Juji">Juji</option>
+                                        <option value="Amiek">Amiek</option>
+                                        <option value="Lain-lain">Lain-lain (Ketik Nama Manual / Pengganti)</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3 hidden-section" id="boxPenyetorLainnya">
-                                    <label for="penyetorLainnya" class="form-label fw-semibold text-danger">Tulis Nama Petugas Pengganti / Lainnya</label>
-                                    <input type="text" class="form-control border-danger" id="penyetorLainnya" placeholder="Masukkan nama lengkap petugas baru">
+                                    <label for="penyetorLainnya" class="form-label fw-semibold text-danger">Tulis Nama Petugas Pengganti / Pengurus</label>
+                                    <input type="text" class="form-control" id="penyetorLainnya" placeholder="Masukkan nama lengkap petugas baru">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="nominal" class="form-label fw-semibold">Nominal Uang (Rp)</label>
+                                    <label for="nominal" class="form-label fw-semibold" id="labelNominal">Nominal Uang (Rp)</label>
                                     <input type="number" class="form-control" id="nominal" oninput="hitungSimulasiKencleng()" placeholder="Masukkan angka saja" required>
-                                    
                                     <div id="simulasiKencleng" class="alert alert-warning mt-2 small p-2 hidden-section">
                                         <i class="fa-solid fa-calculator me-1"></i> Pembagian otomatis (90%:10%):<br>
                                         • Masuk Kas LazisMu: <b id="simMasuk">Rp 0</b><br>
@@ -171,8 +169,8 @@
                                         <input type="date" class="form-control" id="tanggal" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="keterangan" class="form-label fw-semibold">Keterangan / Catatan</label>
-                                        <input type="text" class="form-control" id="keterangan" placeholder="cth: Infaq bulanan, Pengeluaran ATK, dll">
+                                        <label for="keterangan" class="form-label fw-semibold">Keterangan / Catatan Tambahan</label>
+                                        <input type="text" class="form-control" id="keterangan" placeholder="cth: Kas Bulanan, Nota No.01, dll">
                                     </div>
                                 </div>
 
@@ -194,51 +192,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // =========================================================================
-        // PENTING: GANTI TEKS DI BAWAH INI DENGAN URL WEB APP DARI APPS SCRIPT ANDA
-        // =========================================================================
+        // PENTING: TEMPELKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQGYlVP8vevK_YNsPLAxzPcPj2Ng1ep_7jYu1v7HugaqQu_eyPOtGfG5Fd3MddS7PD/exec";
 
-        // Fungsi Memuat Data dari Google Sheets otomatis saat halaman dibuka
-        async function muatDataRekap(tahun = "2026") {
-            if (SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") return;
-            try {
-                const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}`);
-                const data = await response.json();
-                
-                document.getElementById('rekapZakatMal').innerText = "Rp " + (data["Zakat Mal"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapZakatFitrah').innerText = "Rp " + (data["Zakat Fitrah"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapInfaq').innerText = "Rp " + (data["Infaq"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapShadaqah').innerText = "Rp " + (data["Shadaqah"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapKencleng').innerText = "Rp " + (data["Kencleng"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapKenclengMuzaki').innerText = "Hak Petugas (10%): Rp " + (data["HakPenarik"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapQurban').innerText = "Rp " + (data["Qurban"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapTPQ').innerText = "Rp " + (data["TPQ"] || 0).toLocaleString('id-ID');
-                document.getElementById('rekapBA').innerText = "Rp " + (data["BA Al-Hidayah"] || 0).toLocaleString('id-ID');
-                
-                document.getElementById('totalPemasukan').innerText = "Rp " + (data.TotalPemasukan || 0).toLocaleString('id-ID');
-                document.getElementById('totalPengeluaran').innerText = "Rp " + (data.TotalPengeluaran || 0).toLocaleString('id-ID');
-            } catch (error) {
-                console.error("Gagal memuat data keuangan:", error);
-            }
-        }
-
-        window.onload = function() {
-            document.getElementById('tanggal').valueAsDate = new Date();
-            sesuaikanForm();
-            if (SCRIPT_URL !== "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
-                muatDataRekap("2026");
-            }
-        };
-
-        // LOGIN ADMIN (Password bawaan: admin123)
+        // 1. LOGIKA KEAMANAN ADMIN (Sandi default: admin123)
         function cekSandi() {
             const sandi = document.getElementById('sandiAdmin').value;
             if(sandi === "admin123") {
                 document.getElementById('loginBox').classList.add('hidden-section');
                 document.getElementById('formBox').classList.remove('hidden-section');
             } else {
-                alert("Sandi salah! Silakan coba lagi.");
+                alert("Sandi salah! Hubungi ketua Ortom/LazisMu.");
             }
         }
         function logoutAdmin() {
@@ -247,26 +211,24 @@
             document.getElementById('formBox').classList.add('hidden-section');
         }
 
-        // KONDISIONAL FORM PEMASUKAN VS PENGELUARAN
+        // 2. KONDISIONAL FORM (PEMASUKAN vs PENGELUARAN)
         function sesuaikanForm() {
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            const penyetorSelect = document.getElementById('penyetor');
-            
             if (jenis === "Pengeluaran") {
                 document.getElementById('boxPenyetor').classList.add('hidden-section');
                 document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
-                penyetorSelect.removeAttribute('required');
+                document.getElementById('penyetor').removeAttribute('required');
                 document.getElementById('penyetorLainnya').removeAttribute('required');
                 document.getElementById('simulasiKencleng').classList.add('hidden-section');
             } else {
                 document.getElementById('boxPenyetor').classList.remove('hidden-section');
-                penyetorSelect.setAttribute('required', 'required');
-                cekPenyetorLainnya();
+                document.getElementById('penyetor').setAttribute('required', 'required');
                 cekKategori();
+                cekPenyetorLainnya();
             }
         }
 
-        // KONDISIONAL KATEGORI KENCLENG
+        // 3. CEK KATEGORI UTK KENCLENG
         function cekKategori() {
             const kategori = document.getElementById('kategori').value;
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
@@ -278,21 +240,17 @@
             }
         }
 
-        // OPSI PETUGAS LAIN-LAIN (KETIK MANUAL)
+        // 4. LOGIKA TOMBOL OPSI LAIN-LAIN UNTUK PETUGAS
         function cekPenyetorLainnya() {
-            const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            if (jenis === "Pengeluaran") return;
-
             const penyetor = document.getElementById('penyetor').value;
-            const boxLainnya = document.getElementById('boxPenyetorLainnya');
-            const inputLainnya = document.getElementById('penyetorLainnya');
-
-            if(penyetor === "Lain-lain") {
-                boxLainnya.classList.remove('hidden-section');
-                inputLainnya.setAttribute('required', 'required');
+            const jenis = document.querySelector('input[name="jenis"]:checked').value;
+            
+            if(penyetor === "Lain-lain" && jenis === "Pemasukan") {
+                document.getElementById('boxPenyetorLainnya').classList.remove('hidden-section');
+                document.getElementById('penyetorLainnya').setAttribute('required', 'required');
             } else {
-                boxLainnya.classList.add('hidden-section');
-                inputLainnya.removeAttribute('required');
+                document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
+                document.getElementById('penyetorLainnya').removeAttribute('required');
             }
         }
 
@@ -307,41 +265,67 @@
             }
         }
 
-        function filterDataTahunan() {
-            const tahun = document.getElementById('filterTahun').value;
-            if (SCRIPT_URL !== "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
-                muatDataRekap(tahun);
-            } else {
-                alert("Mencoba melihat tahun " + tahun + ". Pastikan SCRIPT_URL sudah diisi agar data asli muncul.");
+        // 5. MEMUAT DATA REKAP DARI GOOGLE SHEETS
+        async function muatDataRekap(tahun = "2026") {
+            if(SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") return;
+            try {
+                const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}`);
+                const data = await response.json();
+                
+                document.getElementById('rekapZakatMal').innerText = "Rp " + data["Zakat Mal"].toLocaleString('id-ID');
+                document.getElementById('rekapZakatFitrah').innerText = "Rp " + data["Zakat Fitrah"].toLocaleString('id-ID');
+                document.getElementById('rekapInfaq').innerText = "Rp " + data["Infaq"].toLocaleString('id-ID');
+                document.getElementById('rekapShadaqah').innerText = "Rp " + data["Shadaqah"].toLocaleString('id-ID');
+                document.getElementById('rekapKencleng').innerText = "Rp " + data["Kencleng"].toLocaleString('id-ID');
+                document.getElementById('rekapKenclengMuzaki').innerText = "Hak Petugas (10%): Rp " + data["HakPenarik"].toLocaleString('id-ID');
+                document.getElementById('rekapQurban').innerText = "Rp " + data["Qurban"].toLocaleString('id-ID');
+                document.getElementById('rekapTPQ').innerText = "Rp " + data["TPQ"].toLocaleString('id-ID');
+                document.getElementById('rekapBA').innerText = "Rp " + data["BA Al-Hidayah"].toLocaleString('id-ID');
+                
+                document.getElementById('totalPemasukan').innerText = "Rp " + data.TotalPemasukan.toLocaleString('id-ID');
+                document.getElementById('totalPengeluaran').innerText = "Rp " + data.TotalPengeluaran.toLocaleString('id-ID');
+            } catch (error) {
+                console.error("Gagal memuat rekap:", error);
             }
         }
 
-        // SIMPAN DATA KE GOOGLE SHEETS
+        window.onload = function() {
+            document.getElementById('tanggal').valueAsDate = new Date();
+            muatDataRekap("2026");
+        };
+
+        function filterDataTahunan() {
+            const tahun = document.getElementById('filterTahun').value;
+            muatDataRekap(tahun);
+        }
+
+        // 6. KIRIM DATA KE GOOGLE SHEETS via POST
         document.getElementById('formKeuangan').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            if (SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
-                alert("Gagal: Anda belum memasukkan URL Web App Google Sheets Anda pada kode SCRIPT_URL!");
-                return;
-            }
-
             const btnSubmit = e.target.querySelector('button[type="submit"]');
             const teksAwal = btnSubmit.innerHTML;
             btnSubmit.disabled = true;
             btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...`;
 
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
+            
+            // Logika Mendapatkan Nama Petugas Penyetor
             let namaPenyetor = "-";
-
             if (jenis === "Pemasukan") {
-                const penyetorSelect = document.getElementById('penyetor').value;
-                if (penyetorSelect === "Lain-lain") {
+                const pilihanPenyetor = document.getElementById('penyetor').value;
+                if (pilihanPenyetor === "Lain-lain") {
                     namaPenyetor = document.getElementById('penyetorLainnya').value;
                 } else {
-                    // Mengambil teks nama asli di dalam drop-down, bukan value kodenya
-                    const selectEl = document.getElementById('penyetor');
-                    namaPenyetor = selectEl.options[selectEl.selectedIndex].text;
+                    namaPenyetor = pilihanPenyetor;
                 }
+            }
+
+            // Gabungkan Nama Petugas ke Note/Keterangan agar terlihat di catatan Sheets
+            let catatanUser = document.getElementById('keterangan').value || "Tanpa catatan";
+            let keteranganAkhir = catatanUser;
+            if (jenis === "Pemasukan") {
+                keteranganAkhir = `[Petugas: ${namaPenyetor}] ${catatanUser}`;
             }
 
             const dataForm = {
@@ -350,7 +334,7 @@
                 kategori: document.getElementById('kategori').value,
                 nominal: document.getElementById('nominal').value,
                 penyetor: namaPenyetor,
-                keterangan: document.getElementById('keterangan').value
+                keterangan: keteranganAkhir
             };
 
             try {
@@ -364,17 +348,14 @@
                     alert("Alhamdulillah, Data Transaksi Berhasil Disimpan!");
                     document.getElementById('formKeuangan').reset();
                     document.getElementById('tanggal').valueAsDate = new Date();
-                    document.getElementById('simulasiKencleng').classList.add('hidden-section');
                     document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
-                    
-                    // Segarkan angka dashboard otomatis mengikuti tahun terpilih
-                    const tahunSekarang = document.getElementById('filterTahun').value;
-                    muatDataRekap(tahunSekarang);
+                    document.getElementById('simulasiKencleng').classList.add('hidden-section');
+                    filterDataTahunan(); // Auto update dashboard depan
                 } else {
                     alert("Gagal menyimpan: " + hasil.message);
                 }
             } catch (error) {
-                alert("Terjadi kesalahan koneksi/jaringan: " + error.message);
+                alert("Terjadi kesalahan sistem: " + error.message);
             } finally {
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = teksAwal;
