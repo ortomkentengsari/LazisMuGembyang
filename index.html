@@ -220,7 +220,7 @@
                                     <th>Tara</th>
                                     <th>Keterangan Note</th>
                                     <th>Aksi</th>
-                                }
+                                </tr>
                             </thead>
                             <tbody id="badanTabelAdmin">
                                 <tr><td colspan="8" class="text-muted">Silakan tunggu, memuat data...</td></tr>
@@ -240,7 +240,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP BARU ANDA DI SINI!
+        // TINGGAL MASUKKAN URL GOOGLE APPS SCRIPT WEB APP ANDA DI SINI
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQGYlVP8vevK_YNsPLAxzPcPj2Ng1ep_7jYu1v7HugaqQu_eyPOtGfG5Fd3MddS7PD/exec";
 
         let dataGlobalTransaksi = [];
@@ -345,7 +345,6 @@
                 const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}&aksi=tabel`);
                 dataGlobalTransaksi = await response.json();
                 
-                // Isi Tabel Publik
                 const tbodyPublik = document.getElementById('badanTabelPublik');
                 tbodyPublik.innerHTML = "";
                 
@@ -367,7 +366,6 @@
                         </tr>`;
                 });
 
-                // Jika admin sedang login, perbarui tabel admin juga
                 if(localStorage.getItem("loginLazismu") === "true") {
                     isiTabelAdmin();
                 }
@@ -412,7 +410,7 @@
             jalankanMuatUlangData();
         };
 
-        // 4. LOGIKA TOMBOL EDIT DATA (MENARIK DATA KE FORM)
+        // 4. LOGIKA EDIT DATA
         function pemicuEditData(rowNumber) {
             const t = dataGlobalTransaksi.find(item => item.rowNumber === rowNumber);
             if(!t) return;
@@ -432,7 +430,6 @@
             document.getElementById('nominal').value = t.bruto;
 
             if(t.jenis === "Pemasukan") {
-                // Memisahkan teks nama asli dari tag note "[Petugas: X]"
                 if(document.getElementById('penyetor').querySelector(`option[value="${t.penyetor}"]`)) {
                     document.getElementById('penyetor').value = t.penyetor;
                 } else {
@@ -442,7 +439,6 @@
                 }
             }
 
-            // Bersihkan teks tag [Petugas: X] di input keterangan agar tidak menumpuk ganda
             let cleanKet = t.keterangan.replace(/^\[Petugas:\s*[^\]]+\]\s*/, '');
             document.getElementById('keterangan').value = cleanKet;
 
@@ -451,7 +447,6 @@
             document.getElementById('btnSimpan').className = "btn btn-warning btn-lg fw-bold w-100";
             document.getElementById('btnSimpan').innerHTML = `<i class="fa-solid fa-floppy-disk me-2"></i> Update Perubahan Data`;
             
-            // Auto scroll ke formulir atas
             document.getElementById('judulForm').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -466,7 +461,7 @@
             sesuaikanForm();
         }
 
-        // 5. KIRIM DATA KE SHEETS (DAPAT MENDETEKSI INPUT BARU / EDIT DATA)
+        // 5. POST DATA KE SHEETS
         document.getElementById('formKeuangan').addEventListener('submit', async function(e) {
             e.preventDefault();
             
