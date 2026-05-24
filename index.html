@@ -12,6 +12,7 @@
         .card-menu { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .nav-tabs .nav-link.active { background-color: #198754; color: white; border-color: #198754; }
         .hidden-section { display: none; }
+        .table-responsive { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
     </style>
 </head>
 <body>
@@ -30,29 +31,28 @@
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"><i class="fa-solid fa-chart-bar me-2"></i>Laporan Publik</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button"><i class="fa-solid fa-user-lock me-2"></i>Input Admin</button>
+                <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button" onclick="cekStatusLogin()"><i class="fa-solid fa-user-lock me-2"></i>Input & Edit Admin</button>
             </li>
         </ul>
+
+        <div class="card p-3 shadow-sm card-menu mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="fw-bold text-success mb-0"><i class="fa-solid fa-calendar-days me-2"></i>Tahun Operasional</h5>
+                </div>
+                <div class="col-md-4">
+                    <select class="form-select border-success fw-bold" id="filterTahun" onchange="jalankanMuatUlangData()">
+                        <option value="2026" selected>Tahun 2026</option>
+                        <option value="2025">Tahun 2025</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <div class="tab-content">
             
             <div class="tab-pane fade show active" id="home-tab-pane">
-                <div class="card p-4 shadow-sm card-menu mb-4">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h4 class="fw-bold text-success mb-1"><i class="fa-solid fa-filter me-2"></i>Rekapitulasi Dana</h4>
-                            <p class="text-muted small mb-md-0">Gunakan filter untuk melihat rekap tahunan.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-select border-success fw-bold" id="filterTahun" onchange="filterDataTahunan()">
-                                <option value="2026" selected>Tahun 2026</option>
-                                <option value="2025">Tahun 2025</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row g-3">
+                <div class="row g-3 mb-5">
                     <div class="col-md-4"><div class="card p-3 card-menu border-start border-success border-4"><h6>Zakat Mal</h6><h4 class="fw-bold text-success" id="rekapZakatMal">Rp 0</h4></div></div>
                     <div class="col-md-4"><div class="card p-3 card-menu border-start border-success border-4"><h6>Zakat Fitrah</h6><h4 class="fw-bold text-success" id="rekapZakatFitrah">Rp 0</h4></div></div>
                     <div class="col-md-4"><div class="card p-3 card-menu border-start border-primary border-4"><h6>Infaq</h6><h4 class="fw-bold text-primary" id="rekapInfaq">Rp 0</h4></div></div>
@@ -60,129 +60,177 @@
                     
                     <div class="col-md-4">
                         <div class="card p-3 card-menu border-start border-warning border-4">
-                            <h6>Kencleng (Bersih 90%)</h6>
+                            <h6>Kencleng (Netto 90%)</h6>
                             <h4 class="fw-bold text-warning" id="rekapKencleng">Rp 0</h4>
-                            <small class="text-muted fw-semibold" id="rekapKenclengMuzaki">Hak Petugas (10%): Rp 0</small>
+                            <small class="text-muted fw-semibold" id="rekapKenclengMuzaki">Tara Petugas (10%): Rp 0</small>
                         </div>
                     </div>
                     
                     <div class="col-md-4"><div class="card p-3 card-menu border-start border-danger border-4"><h6>Qurban</h6><h4 class="fw-bold text-danger" id="rekapQurban">Rp 0</h4></div></div>
-                    
                     <div class="col-md-6"><div class="card p-3 card-menu border-start border-info border-4"><h6>Amal Usaha: TPQ</h6><h4 class="fw-bold text-info" id="rekapTPQ">Rp 0</h4></div></div>
                     <div class="col-md-6"><div class="card p-3 card-menu border-start border-info border-4"><h6>Amal Usaha: BA Al-Hidayah</h6><h4 class="fw-bold text-info" id="rekapBA">Rp 0</h4></div></div>
                     
-                    <div class="col-md-6"><div class="card p-3 card-menu bg-success text-white"><h6>Total Seluruh Pemasukan</h6><h3 class="fw-bold" id="totalPemasukan">Rp 0</h3></div></div>
+                    <div class="col-md-6"><div class="card p-3 card-menu bg-success text-white"><h6>Total Seluruh Pemasukan (Bruto)</h6><h3 class="fw-bold" id="totalPemasukan">Rp 0</h3></div></div>
                     <div class="col-md-6"><div class="card p-3 card-menu bg-danger text-white"><h6>Total Seluruh Pengeluaran</h6><h3 class="fw-bold" id="totalPengeluaran">Rp 0</h3></div></div>
+                </div>
+
+                <div class="table-responsive">
+                    <h5 class="fw-bold text-dark mb-3"><i class="fa-solid fa-list-check me-2 text-success"></i>Rincian Riwayat Transaksi Jurnal</h5>
+                    <table class="table table-striped align-middle text-center small">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Jenis</th>
+                                <th>Kategori</th>
+                                <th>Bruto (Kotor)</th>
+                                <th>Netto (90%)</th>
+                                <th>Tara (10%)</th>
+                                <th>Keterangan / Catatan Note</th>
+                            </tr>
+                        </thead>
+                        <tbody id="badanTabelPublik">
+                            <tr><td colspan="7" class="text-muted">Memuat data dari Google Sheets...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <div class="tab-pane fade" id="admin-tab-pane">
-                
                 <div id="loginBox" class="row justify-content-center">
                     <div class="col-md-5">
                         <div class="card p-4 text-center shadow-sm card-menu">
                             <i class="fa-solid fa-lock text-warning display-4 mb-3"></i>
                             <h5 class="fw-bold">Akses Terbatas Admin</h5>
-                            <p class="text-muted small">Masukkan sandi untuk menginput kas keuangan</p>
+                            <p class="text-muted small">Masukkan sandi untuk mengelola data</p>
                             <input type="password" id="sandiAdmin" class="form-control mb-3 text-center" placeholder="Masukkan Sandi">
                             <button class="btn btn-success w-100 fw-bold" onclick="cekSandi()"><i class="fa-solid fa-right-to-bracket me-2"></i>Masuk</button>
                         </div>
                     </div>
                 </div>
 
-                <div id="formBox" class="row justify-content-center hidden-section">
-                    <div class="col-md-8">
-                        <div class="card p-4 shadow-sm card-menu">
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h4 class="fw-bold text-success mb-0"><i class="fa-solid fa-pen-to-square me-2"></i>Form Transaksi Keuangan</h4>
-                                <button class="btn btn-sm btn-outline-danger" onclick="logoutAdmin()">Keluar <i class="fa-solid fa-sign-out"></i></button>
-                            </div>
-                            
-                            <form id="formKeuangan">
-                                <div class="mb-3">
-                                    <label class="form-label fw-semibold">Jenis Transaksi</label>
-                                    <div class="d-flex gap-3">
-                                        <input type="radio" class="btn-check" name="jenis" id="jenisMasuk" value="Pemasukan" checked onclick="sesuaikanForm()">
-                                        <label class="btn btn-outline-success w-50 fw-bold" for="jenisMasuk"><i class="fa-solid fa-arrow-down-long me-2"></i>Uang Masuk</label>
-
-                                        <input type="radio" class="btn-check" name="jenis" id="jenisKeluar" value="Pengeluaran" onclick="sesuaikanForm()">
-                                        <label class="btn btn-outline-danger w-50 fw-bold" for="jenisKeluar"><i class="fa-solid fa-arrow-up-long me-2"></i>Uang Keluar</label>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="kategori" class="form-label fw-semibold">Kategori Dana</label>
-                                    <select class="form-select" id="kategori" onchange="cekKategori()" required>
-                                        <option value="" disabled selected>-- Pilih Kategori --</option>
-                                        <option value="Zakat Mal">Zakat Mal</option>
-                                        <option value="Zakat Fitrah">Zakat Fitrah</option>
-                                        <option value="Infaq">Infaq</option>
-                                        <option value="Shadaqah">Shadaqah</option>
-                                        <option value="Kencleng">Kencleng</option>
-                                        <option value="Qurban">Qurban</option>
-                                        <option value="TPQ">Amal Usaha: TPQ</option>
-                                        <option value="BA Al-Hidayah">Amal Usaha: BA Al-Hidayah</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3" id="boxPenyetor">
-                                    <label for="penyetor" class="form-label fw-semibold">Nama Petugas Penyetor / Penarik</label>
-                                    <select class="form-select" id="penyetor" onchange="cekPenyetorLainnya()" required>
-                                        <option value="" disabled selected>-- Pilih Nama Petugas --</option>
-                                        <option value="Bawon">Bawon</option>
-                                        <option value="Mega">Mega</option>
-                                        <option value="Tatik">Tatik</option>
-                                        <option value="Lis-Sih">Lis-Sih</option>
-                                        <option value="Sri-Imah">Sri-Imah</option>
-                                        <option value="Slamet">Slamet</option>
-                                        <option value="Restiyana">Restiyana</option>
-                                        <option value="Endang-Uti">Endang-Uti</option>
-                                        <option value="Fara">Fara</option>
-                                        <option value="Udi">Udi</option>
-                                        <option value="Muhyasir">Muhyasir</option>
-                                        <option value="Agus">Agus</option>
-                                        <option value="Neva">Neva</option>
-                                        <option value="Juji">Juji</option>
-                                        <option value="Amiek">Amiek</option>
-                                        <option value="Lain-lain">Lain-lain (Ketik Nama Manual / Pengganti)</option>
-                                    </select>
-                                </div>
-
-                                <div class="mb-3 hidden-section" id="boxPenyetorLainnya">
-                                    <label for="penyetorLainnya" class="form-label fw-semibold text-danger">Tulis Nama Petugas Pengganti / Pengurus</label>
-                                    <input type="text" class="form-control" id="penyetorLainnya" placeholder="Masukkan nama lengkap petugas baru">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="nominal" class="form-label fw-semibold" id="labelNominal">Nominal Uang (Rp)</label>
-                                    <input type="number" class="form-control" id="nominal" oninput="hitungSimulasiKencleng()" placeholder="Masukkan angka saja" required>
-                                    <div id="simulasiKencleng" class="alert alert-warning mt-2 small p-2 hidden-section">
-                                        <i class="fa-solid fa-calculator me-1"></i> Pembagian otomatis (90%:10%):<br>
-                                        • Masuk Kas LazisMu: <b id="simMasuk">Rp 0</b><br>
-                                        • Hak Penarik Kencleng: <b id="simHak">Rp 0</b>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="tanggal" class="form-label fw-semibold">Tanggal</label>
-                                        <input type="date" class="form-control" id="tanggal" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="keterangan" class="form-label fw-semibold">Keterangan / Catatan Tambahan</label>
-                                        <input type="text" class="form-control" id="keterangan" placeholder="cth: Kas Bulanan, Nota No.01, dll">
-                                    </div>
-                                </div>
-
-                                <div class="d-grid mt-2">
-                                    <button type="submit" class="btn btn-success btn-lg fw-bold"><i class="fa-solid fa-paper-plane me-2"></i>Simpan Transaksi</button>
-                                </div>
-                            </form>
+                <div id="kontenAdmin" class="hidden-section">
+                    <div class="row mb-4">
+                        <div class="col-md-12 text-end">
+                            <button class="btn btn-danger btn-sm" onclick="logoutAdmin()">Keluar Sistem Admin <i class="fa-solid fa-sign-out"></i></button>
                         </div>
                     </div>
-                </div>
 
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-md-8">
+                            <div class="card p-4 shadow-sm card-menu border border-success">
+                                <h4 class="fw-bold text-success mb-4 text-center" id="judulForm"><i class="fa-solid fa-pen-to-square me-2"></i>Form Entri Keuangan</h4>
+                                
+                                <form id="formKeuangan">
+                                    <input type="hidden" id="editRowNumber" value="">
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-semibold">Jenis Transaksi</label>
+                                        <div class="d-flex gap-3">
+                                            <input type="radio" class="btn-check" name="jenis" id="jenisMasuk" value="Pemasukan" checked onclick="sesuaikanForm()">
+                                            <label class="btn btn-outline-success w-50 fw-bold" for="jenisMasuk"><i class="fa-solid fa-arrow-down-long me-2"></i>Uang Masuk</label>
+
+                                            <input type="radio" class="btn-check" name="jenis" id="jenisKeluar" value="Pengeluaran" onclick="sesuaikanForm()">
+                                            <label class="btn btn-outline-danger w-50 fw-bold" for="jenisKeluar"><i class="fa-solid fa-arrow-up-long me-2"></i>Uang Keluar</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="kategori" class="form-label fw-semibold">Kategori Dana</label>
+                                        <select class="form-select" id="kategori" onchange="cekKategori()" required>
+                                            <option value="" disabled selected>-- Pilih Kategori --</option>
+                                            <option value="Zakat Mal">Zakat Mal</option>
+                                            <option value="Zakat Fitrah">Zakat Fitrah</option>
+                                            <option value="Infaq">Infaq</option>
+                                            <option value="Shadaqah">Shadaqah</option>
+                                            <option value="Kencleng">Kencleng</option>
+                                            <option value="Qurban">Qurban</option>
+                                            <option value="TPQ">Amal Usaha: TPQ</option>
+                                            <option value="BA Al-Hidayah">Amal Usaha: BA Al-Hidayah</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3" id="boxPenyetor">
+                                        <label for="penyetor" class="form-label fw-semibold">Nama Petugas Penyetor / Penarik</label>
+                                        <select class="form-select" id="penyetor" onchange="cekPenyetorLainnya()" required>
+                                            <option value="" disabled selected>-- Pilih Nama Petugas --</option>
+                                            <option value="Bawon">Bawon</option>
+                                            <option value="Mega">Mega</option>
+                                            <option value="Tatik">Tatik</option>
+                                            <option value="Lis-Sih">Lis-Sih</option>
+                                            <option value="Sri-Imah">Sri-Imah</option>
+                                            <option value="Slamet">Slamet</option>
+                                            <option value="Restiyana">Restiyana</option>
+                                            <option value="Endang-Uti">Endang-Uti</option>
+                                            <option value="Fara">Fara</option>
+                                            <option value="Udi">Udi</option>
+                                            <option value="Muhyasir">Muhyasir</option>
+                                            <option value="Agus">Agus</option>
+                                            <option value="Neva">Neva</option>
+                                            <option value="Juji">Juji</option>
+                                            <option value="Amiek">Amiek</option>
+                                            <option value="Lain-lain">Lain-lain (Ketik Nama Manual / Pengganti)</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3 hidden-section" id="boxPenyetorLainnya">
+                                        <label for="penyetorLainnya" class="form-label fw-semibold text-danger">Tulis Nama Petugas Pengganti / Pengurus</label>
+                                        <input type="text" class="form-control" id="penyetorLainnya" placeholder="Masukkan nama lengkap petugas">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="nominal" class="form-label fw-semibold" id="labelNominal">Nominal Uang Bruto (Rp)</label>
+                                        <input type="number" class="form-control" id="nominal" oninput="hitungSimulasiKencleng()" placeholder="Masukkan angka tanpa titik koma" required>
+                                        <div id="simulasiKencleng" class="alert alert-warning mt-2 small p-2 hidden-section">
+                                            <i class="fa-solid fa-calculator me-1"></i> Hitungan Otomatis Kencleng:<br>
+                                            • Netto (Masuk LazisMu 90%): <b id="simMasuk">Rp 0</b><br>
+                                            • Tara (Hak Penarik 10%): <b id="simHak">Rp 0</b>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="tanggal" class="form-label fw-semibold">Tanggal</label>
+                                            <input type="date" class="form-control" id="tanggal" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="keterangan" class="form-label fw-semibold">Catatan Informasi / Note</label>
+                                            <input type="text" class="form-control" id="keterangan" placeholder="Keterangan tambahan">
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-2 mt-2">
+                                        <button type="submit" id="btnSimpan" class="btn btn-success btn-lg fw-bold w-100"><i class="fa-solid fa-paper-plane me-2"></i>Simpan Transaksi</button>
+                                        <button type="button" id="btnBatalEdit" class="btn btn-secondary btn-lg hidden-section" onclick="resetFormKeuangan()">Batal</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-user-gear me-2"></i>Panel Kontrol Tindakan Data (Edit Data)</h5>
+                        <table class="table table-bordered align-middle text-center small">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Jenis</th>
+                                    <th>Kategori</th>
+                                    <th>Bruto</th>
+                                    <th>Netto</th>
+                                    <th>Tara</th>
+                                    <th>Keterangan Note</th>
+                                    <th>Aksi</th>
+                                }
+                            </thead>
+                            <tbody id="badanTabelAdmin">
+                                <tr><td colspan="8" class="text-muted">Silakan tunggu, memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -192,26 +240,40 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // PENTING: TEMPELKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI
+        // MASUKKAN URL GOOGLE APPS SCRIPT WEB APP BARU ANDA DI SINI!
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQGYlVP8vevK_YNsPLAxzPcPj2Ng1ep_7jYu1v7HugaqQu_eyPOtGfG5Fd3MddS7PD/exec";
 
-        // 1. LOGIKA KEAMANAN ADMIN (Sandi default: admin123)
+        let dataGlobalTransaksi = [];
+
+        // 1. OTENTIKASI ADMIN SEMENTARA
         function cekSandi() {
             const sandi = document.getElementById('sandiAdmin').value;
             if(sandi === "admin123") {
-                document.getElementById('loginBox').classList.add('hidden-section');
-                document.getElementById('formBox').classList.remove('hidden-section');
+                localStorage.setItem("loginLazismu", "true");
+                tampilkanHalamanAdmin();
             } else {
-                alert("Sandi salah! Hubungi ketua Ortom/LazisMu.");
+                alert("Sandi salah!");
             }
         }
+        function cekStatusLogin() {
+            if(localStorage.getItem("loginLazismu") === "true") {
+                tampilkanHalamanAdmin();
+            }
+        }
+        function tampilkanHalamanAdmin() {
+            document.getElementById('loginBox').classList.add('hidden-section');
+            document.getElementById('kontenAdmin').classList.remove('hidden-section');
+            isiTabelAdmin();
+        }
         function logoutAdmin() {
+            localStorage.removeItem("loginLazismu");
             document.getElementById('sandiAdmin').value = "";
             document.getElementById('loginBox').classList.remove('hidden-section');
-            document.getElementById('formBox').classList.add('hidden-section');
+            document.getElementById('kontenAdmin').classList.add('hidden-section');
+            resetFormKeuangan();
         }
 
-        // 2. KONDISIONAL FORM (PEMASUKAN vs PENGELUARAN)
+        // 2. FORM KONDISIONAL
         function sesuaikanForm() {
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
             if (jenis === "Pengeluaran") {
@@ -227,8 +289,6 @@
                 cekPenyetorLainnya();
             }
         }
-
-        // 3. CEK KATEGORI UTK KENCLENG
         function cekKategori() {
             const kategori = document.getElementById('kategori').value;
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
@@ -239,12 +299,9 @@
                 document.getElementById('simulasiKencleng').classList.add('hidden-section');
             }
         }
-
-        // 4. LOGIKA TOMBOL OPSI LAIN-LAIN UNTUK PETUGAS
         function cekPenyetorLainnya() {
             const penyetor = document.getElementById('penyetor').value;
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            
             if(penyetor === "Lain-lain" && jenis === "Pemasukan") {
                 document.getElementById('boxPenyetorLainnya').classList.remove('hidden-section');
                 document.getElementById('penyetorLainnya').setAttribute('required', 'required');
@@ -253,113 +310,203 @@
                 document.getElementById('penyetorLainnya').removeAttribute('required');
             }
         }
-
         function hitungSimulasiKencleng() {
             const nominal = document.getElementById('nominal').value || 0;
             const kategori = document.getElementById('kategori').value;
             if(kategori === "Kencleng") {
-                const masuk = nominal * 0.9;
-                const hak = nominal * 0.1;
-                document.getElementById('simMasuk').innerText = "Rp " + masuk.toLocaleString('id-ID');
-                document.getElementById('simHak').innerText = "Rp " + hak.toLocaleString('id-ID');
+                document.getElementById('simMasuk').innerText = "Rp " + (nominal * 0.9).toLocaleString('id-ID');
+                document.getElementById('simHak').innerText = "Rp " + (nominal * 0.1).toLocaleString('id-ID');
             }
         }
 
-        // 5. MEMUAT DATA REKAP DARI GOOGLE SHEETS
-        async function muatDataRekap(tahun = "2026") {
+        // 3. AMBIL DATA & TAMPILKAN KE TABEL & DASHBOARD
+        async function muatDataDashboard(tahun = "2026") {
             if(SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") return;
             try {
                 const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}`);
                 const data = await response.json();
-                
                 document.getElementById('rekapZakatMal').innerText = "Rp " + data["Zakat Mal"].toLocaleString('id-ID');
                 document.getElementById('rekapZakatFitrah').innerText = "Rp " + data["Zakat Fitrah"].toLocaleString('id-ID');
                 document.getElementById('rekapInfaq').innerText = "Rp " + data["Infaq"].toLocaleString('id-ID');
                 document.getElementById('rekapShadaqah').innerText = "Rp " + data["Shadaqah"].toLocaleString('id-ID');
                 document.getElementById('rekapKencleng').innerText = "Rp " + data["Kencleng"].toLocaleString('id-ID');
-                document.getElementById('rekapKenclengMuzaki').innerText = "Hak Petugas (10%): Rp " + data["HakPenarik"].toLocaleString('id-ID');
+                document.getElementById('rekapKenclengMuzaki').innerText = "Tara Petugas (10%): Rp " + data["HakPenarik"].toLocaleString('id-ID');
                 document.getElementById('rekapQurban').innerText = "Rp " + data["Qurban"].toLocaleString('id-ID');
                 document.getElementById('rekapTPQ').innerText = "Rp " + data["TPQ"].toLocaleString('id-ID');
                 document.getElementById('rekapBA').innerText = "Rp " + data["BA Al-Hidayah"].toLocaleString('id-ID');
-                
                 document.getElementById('totalPemasukan').innerText = "Rp " + data.TotalPemasukan.toLocaleString('id-ID');
                 document.getElementById('totalPengeluaran').innerText = "Rp " + data.TotalPengeluaran.toLocaleString('id-ID');
-            } catch (error) {
-                console.error("Gagal memuat rekap:", error);
+            } catch (e) { console.error(e); }
+        }
+
+        async function muatDataTabelLengkap(tahun = "2026") {
+            if(SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") return;
+            try {
+                const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}&aksi=tabel`);
+                dataGlobalTransaksi = await response.json();
+                
+                // Isi Tabel Publik
+                const tbodyPublik = document.getElementById('badanTabelPublik');
+                tbodyPublik.innerHTML = "";
+                
+                if(dataGlobalTransaksi.length === 0) {
+                    tbodyPublik.innerHTML = `<tr><td colspan="7" class="text-muted">Belum ada transaksi di tahun ini.</td></tr>`;
+                    return;
+                }
+
+                dataGlobalTransaksi.forEach(t => {
+                    tbodyPublik.innerHTML += `
+                        <tr>
+                            <td>${t.tanggal}</td>
+                            <td><span class="badge ${t.jenis==='Pemasukan'?'bg-success':'bg-danger'}">${t.jenis}</span></td>
+                            <td>${t.kategori}</td>
+                            <td>Rp ${t.bruto.toLocaleString('id-ID')}</td>
+                            <td>Rp ${t.netto.toLocaleString('id-ID')}</td>
+                            <td>Rp ${t.tara.toLocaleString('id-ID')}</td>
+                            <td class="text-start small">${t.keterangan}</td>
+                        </tr>`;
+                });
+
+                // Jika admin sedang login, perbarui tabel admin juga
+                if(localStorage.getItem("loginLazismu") === "true") {
+                    isiTabelAdmin();
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        function isiTabelAdmin() {
+            const tbodyAdmin = document.getElementById('badanTabelAdmin');
+            if(!tbodyAdmin) return;
+            tbodyAdmin.innerHTML = "";
+
+            if(dataGlobalTransaksi.length === 0) {
+                tbodyAdmin.innerHTML = `<tr><td colspan="8" class="text-muted">Tidak ada data tindakan.</td></tr>`;
+                return;
             }
+
+            dataGlobalTransaksi.forEach(t => {
+                tbodyAdmin.innerHTML += `
+                    <tr>
+                        <td>${t.tanggal}</td>
+                        <td>${t.jenis}</td>
+                        <td>${t.kategori}</td>
+                        <td>Rp ${t.bruto.toLocaleString('id-ID')}</td>
+                        <td>Rp ${t.netto.toLocaleString('id-ID')}</td>
+                        <td>Rp ${t.tara.toLocaleString('id-ID')}</td>
+                        <td class="text-start small">${t.keterangan}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning fw-bold" onclick="pemicuEditData(${t.rowNumber})"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                        </td>
+                    </tr>`;
+            });
+        }
+
+        function jalankanMuatUlangData() {
+            const tahun = document.getElementById('filterTahun').value;
+            muatDataDashboard(tahun);
+            muatDataTabelLengkap(tahun);
         }
 
         window.onload = function() {
             document.getElementById('tanggal').valueAsDate = new Date();
-            muatDataRekap("2026");
+            jalankanMuatUlangData();
         };
 
-        function filterDataTahunan() {
-            const tahun = document.getElementById('filterTahun').value;
-            muatDataRekap(tahun);
-        }
+        // 4. LOGIKA TOMBOL EDIT DATA (MENARIK DATA KE FORM)
+        function pemicuEditData(rowNumber) {
+            const t = dataGlobalTransaksi.find(item => item.rowNumber === rowNumber);
+            if(!t) return;
 
-        // 6. KIRIM DATA KE GOOGLE SHEETS via POST
-        document.getElementById('formKeuangan').addEventListener('submit', async function(e) {
-            e.preventDefault();
+            document.getElementById('judulForm').innerHTML = `<i class="fa-solid fa-user-pen me-2 text-warning"></i> Mode Perubahan Edit Baris #${rowNumber}`;
+            document.getElementById('editRowNumber').value = t.rowNumber;
+            document.getElementById('tanggal').value = t.tanggal;
             
-            const btnSubmit = e.target.querySelector('button[type="submit"]');
-            const teksAwal = btnSubmit.innerHTML;
-            btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...`;
+            if(t.jenis === "Pemasukan") {
+                document.getElementById('jenisMasuk').checked = true;
+            } else {
+                document.getElementById('jenisKeluar').checked = true;
+            }
+            sesuaikanForm();
 
-            const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            
-            // Logika Mendapatkan Nama Petugas Penyetor
-            let namaPenyetor = "-";
-            if (jenis === "Pemasukan") {
-                const pilihanPenyetor = document.getElementById('penyetor').value;
-                if (pilihanPenyetor === "Lain-lain") {
-                    namaPenyetor = document.getElementById('penyetorLainnya').value;
+            document.getElementById('kategori').value = t.kategori;
+            document.getElementById('nominal').value = t.bruto;
+
+            if(t.jenis === "Pemasukan") {
+                // Memisahkan teks nama asli dari tag note "[Petugas: X]"
+                if(document.getElementById('penyetor').querySelector(`option[value="${t.penyetor}"]`)) {
+                    document.getElementById('penyetor').value = t.penyetor;
                 } else {
-                    namaPenyetor = pilihanPenyetor;
+                    document.getElementById('penyetor').value = "Lain-lain";
+                    cekPenyetorLainnya();
+                    document.getElementById('penyetorLainnya').value = t.penyetor;
                 }
             }
 
-            // Gabungkan Nama Petugas ke Note/Keterangan agar terlihat di catatan Sheets
-            let catatanUser = document.getElementById('keterangan').value || "Tanpa catatan";
-            let keteranganAkhir = catatanUser;
+            // Bersihkan teks tag [Petugas: X] di input keterangan agar tidak menumpuk ganda
+            let cleanKet = t.keterangan.replace(/^\[Petugas:\s*[^\]]+\]\s*/, '');
+            document.getElementById('keterangan').value = cleanKet;
+
+            cekKategori();
+            document.getElementById('btnBatalEdit').classList.remove('hidden-section');
+            document.getElementById('btnSimpan').className = "btn btn-warning btn-lg fw-bold w-100";
+            document.getElementById('btnSimpan').innerHTML = `<i class="fa-solid fa-floppy-disk me-2"></i> Update Perubahan Data`;
+            
+            // Auto scroll ke formulir atas
+            document.getElementById('judulForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetFormKeuangan() {
+            document.getElementById('formKeuangan').reset();
+            document.getElementById('editRowNumber').value = "";
+            document.getElementById('tanggal').valueAsDate = new Date();
+            document.getElementById('judulForm').innerHTML = `<i class="fa-solid fa-pen-to-square me-2"></i>Form Entri Keuangan`;
+            document.getElementById('btnBatalEdit').classList.add('hidden-section');
+            document.getElementById('btnSimpan').className = "btn btn-success btn-lg fw-bold w-100";
+            document.getElementById('btnSimpan').innerHTML = `<i class="fa-solid fa-paper-plane me-2"></i>Simpan Transaksi`;
+            sesuaikanForm();
+        }
+
+        // 5. KIRIM DATA KE SHEETS (DAPAT MENDETEKSI INPUT BARU / EDIT DATA)
+        document.getElementById('formKeuangan').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnSimpan');
+            const txtAwal = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `Memproses data ke Sheets...`;
+
+            const jenis = document.querySelector('input[name="jenis"]:checked').value;
+            const rowNum = document.getElementById('editRowNumber').value;
+            
+            let penyetor = "-";
             if (jenis === "Pemasukan") {
-                keteranganAkhir = `[Petugas: ${namaPenyetor}] ${catatanUser}`;
+                let p = document.getElementById('penyetor').value;
+                penyetor = (p === "Lain-lain") ? document.getElementById('penyetorLainnya').value : p;
             }
 
-            const dataForm = {
+            let userNote = document.getElementById('keterangan').value || "Tanpa catatan";
+            let ketAkhir = (jenis === "Pemasukan") ? `[Petugas: ${penyetor}] ${userNote}` : userNote;
+
+            const payload = {
+                rowNumber: rowNum ? parseInt(rowNum) : null,
                 tanggal: document.getElementById('tanggal').value,
                 jenis: jenis,
                 kategori: document.getElementById('kategori').value,
                 nominal: document.getElementById('nominal').value,
-                penyetor: namaPenyetor,
-                keterangan: keteranganAkhir
+                penyetor: penyetor,
+                keterangan: ketAkhir
             };
 
             try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(dataForm)
-                });
-                const hasil = await response.json();
-
-                if (hasil.status === "success") {
-                    alert("Alhamdulillah, Data Transaksi Berhasil Disimpan!");
-                    document.getElementById('formKeuangan').reset();
-                    document.getElementById('tanggal').valueAsDate = new Date();
-                    document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
-                    document.getElementById('simulasiKencleng').classList.add('hidden-section');
-                    filterDataTahunan(); // Auto update dashboard depan
-                } else {
-                    alert("Gagal menyimpan: " + hasil.message);
-                }
-            } catch (error) {
-                alert("Terjadi kesalahan sistem: " + error.message);
-            } finally {
-                btnSubmit.disabled = false;
-                btnSubmit.innerHTML = teksAwal;
-            }
+                const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+                const hasil = await res.json();
+                if(hasil.status === "success") {
+                    alert(rowNum ? "Data Berhasil Diperbarui!" : "Data Berhasil Disimpan!");
+                    resetFormKeuangan();
+                    jalankanMuatUlangData();
+                } else { alert("Gagal: " + hasil.message); }
+            } catch (err) { alert("Error: " + err.message); }
+            finally { btn.disabled = false; btn.innerHTML = txtAwal; }
         });
     </script>
 </body>
