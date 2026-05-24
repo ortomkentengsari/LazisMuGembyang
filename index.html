@@ -7,90 +7,30 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { 
-            background-color: #f4f7f5; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            color: #2c3e50;
-        }
-        .hero-section { 
-            background: linear-gradient(135deg, #0a4d30 0%, #1f8a55 100%); 
-            color: white; 
-            padding: 40px 0; 
-            border-bottom-left-radius: 25px; 
-            border-bottom-right-radius: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .card-menu { 
-            border: none; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.04); 
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        .card-menu:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-        }
-        .nav-tabs {
-            border-bottom: none;
-        }
-        .nav-tabs .nav-link {
-            border: none;
-            color: #5a7363;
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: 30px;
-            margin: 0 5px;
-            transition: all 0.2s;
-        }
-        .nav-tabs .nav-link.active { 
-            background-color: #198754; 
-            color: white !important; 
-            box-shadow: 0 4px 10px rgba(25,135,84,0.3);
-        }
-        .nav-tabs .nav-link:hover:not(.active) {
-            background-color: rgba(25,135,84,0.1);
-            color: #198754;
-        }
-        .border-left-success { border-left: 5px solid #198754; }
-        .border-left-primary { border-left: 5px solid #0d6efd; }
-        .border-left-warning { border-left: 5px solid #ffc107; }
-        .border-left-danger { border-left: 5px solid #dc3545; }
-        .border-left-info { border-left: 5px solid #0dcaf0; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .hero-section { background: linear-gradient(135deg, #0d5c3a 0%, #198754 100%); color: white; padding: 40px 0; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .card-menu { border: none; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .nav-tabs .nav-link.active { background-color: #198754; color: white; border-color: #198754; }
         .hidden-section { display: none; }
-        .rekap-value {
-            font-size: 1.6rem;
-            font-weight: 700;
-        }
-        .btn-check:checked + .btn-outline-success {
-            background-color: #198754;
-            color: white;
-            box-shadow: 0 4px 8px rgba(25,135,84,0.3);
-        }
-        .btn-check:checked + .btn-outline-danger {
-            background-color: #dc3545;
-            color: white;
-            box-shadow: 0 4px 8px rgba(220,53,69,0.3);
-        }
     </style>
 </head>
 <body>
 
     <div class="hero-section text-center mb-4">
         <div class="container">
-            <h2 class="fw-bold mb-1">LazisMu Kantor Layanan Gembyang</h2>
-            <p class="lead mb-2" style="font-size: 1.1rem; opacity: 0.9;">Sistem Informasi Input & Rekapitulasi Data Keuangan Aktual</p>
-            <span class="badge bg-warning text-dark px-3 py-2 fs-6 rounded-pill shadow-sm">Ortom Kentengsari</span>
+            <h1 class="fw-bold">LazisMu Kantor Layanan Gembyang</h1>
+            <p class="lead">Sistem Informasi Input & Rekapitulasi Data Keuangan</p>
+            <span class="badge bg-warning text-dark px-3 py-2 fs-6 rounded-pill">Ortom Kentengsari</span>
         </div>
     </div>
 
     <div class="container mb-5">
         <ul class="nav nav-tabs justify-content-center mb-4 fs-5" id="mainTab" role="tablist">
             <li class="nav-item">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"><i class="fa-solid fa-chart-line me-2"></i>Laporan Publik</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"><i class="fa-solid fa-chart-bar me-2"></i>Laporan Publik</button>
             </li>
             <li class="nav-item">
-                <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button"><i class="fa-solid fa-user-shield me-2"></i>Input Admin</button>
+                <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-tab-pane" type="button"><i class="fa-solid fa-user-lock me-2"></i>Input Admin</button>
             </li>
         </ul>
 
@@ -99,136 +39,82 @@
             <div class="tab-pane fade show active" id="home-tab-pane">
                 <div class="card p-4 shadow-sm card-menu mb-4">
                     <div class="row align-items-center">
-                        <div class="col-md-7">
-                            <h4 class="fw-bold text-success mb-1"><i class="fa-solid fa-scale-balanced me-2"></i>Rekapitulasi Dana Umat</h4>
-                            <p class="text-muted small mb-md-0">Transparansi keuangan berkala yang disinkronkan langsung dari basis data lapangan.</p>
+                        <div class="col-md-8">
+                            <h4 class="fw-bold text-success mb-1"><i class="fa-solid fa-filter me-2"></i>Rekapitulasi Dana</h4>
+                            <p class="text-muted small mb-md-0">Gunakan filter untuk melihat rekap tahunan.</p>
                         </div>
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                <span class="input-group-text bg-success text-white border-success"><i class="fa-solid fa-calendar-days"></i></span>
-                                <select class="form-select border-success fw-bold" id="filterTahun" onchange="filterDataTahunan()">
-                                    <option value="2026" selected>Tahun Anggaran 2026</option>
-                                    <option value="2025">Tahun Anggaran 2025</option>
-                                    <option value="2024">Tahun Anggaran 2024</option>
-                                </select>
-                            </div>
+                        <div class="col-md-4">
+                            <select class="form-select border-success fw-bold" id="filterTahun" onchange="filterDataTahunan()">
+                                <option value="2026" selected>Tahun 2026</option>
+                                <option value="2025">Tahun 2025</option>
+                                <option value="2024">Tahun 2024</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 
-                <div class="row g-3 mb-4">
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-success">
-                            <span class="text-muted text-uppercase small fw-bold">Zakat Mal</span>
-                            <div class="rekap-value text-success" id="rekapZakatMal">Rp 0</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-success">
-                            <span class="text-muted text-uppercase small fw-bold">Zakat Fitrah</span>
-                            <div class="rekap-value text-success" id="rekapZakatFitrah">Rp 0</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-primary">
-                            <span class="text-muted text-uppercase small fw-bold">Infaq</span>
-                            <div class="rekap-value text-primary" id="rekapInfaq">Rp 0</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-primary">
-                            <span class="text-muted text-uppercase small fw-bold">Shadaqah</span>
-                            <div class="rekap-value text-primary" id="rekapShadaqah">Rp 0</div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-warning">
-                            <span class="text-muted text-uppercase small fw-bold">Kencleng (Murni 90%)</span>
-                            <div class="rekap-value text-warning" id="rekapKencleng">Rp 0</div>
-                            <div class="text-muted small mt-1" style="font-size: 0.82rem;" id="rekapKenclengMuzaki">
-                                <i class="fa-solid fa-hand-holding-heart me-1"></i>Hak Petugas (10%): Rp 0
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-4 col-sm-6">
-                        <div class="card p-3 card-menu border-left-danger">
-                            <span class="text-muted text-uppercase small fw-bold">Qurban</span>
-                            <div class="rekap-value text-danger" id="rekapQurban">Rp 0</div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="card p-3 card-menu border-left-info">
-                            <span class="text-muted text-uppercase small fw-bold"><i class="fa-solid fa-school-flag me-1 text-info"></i> Amal Usaha: TPQ</span>
-                            <div class="rekap-value text-info" id="rekapTPQ">Rp 0</div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card p-3 card-menu border-left-info">
-                            <span class="text-muted text-uppercase small fw-bold"><i class="fa-solid fa-mosque me-1 text-info"></i> Amal Usaha: BA Al-Hidayah</span>
-                            <div class="rekap-value text-info" id="rekapBA">Rp 0</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="card p-3 card-menu bg-success text-white shadow-sm">
-                            <div class="small text-uppercase fw-bold opacity-75"><i class="fa-solid fa-circle-arrow-down me-1"></i>Total Seluruh Pemasukan</div>
-                            <h2 class="fw-bold mt-1" id="totalPemasukan">Rp 0</h2>
+                    <div class="col-md-4"><div class="card p-3 card-menu border-start border-success border-4"><h6>Zakat Mal</h6><h4 class="fw-bold text-success" id="rekapZakatMal">Rp 0</h4></div></div>
+                    <div class="col-md-4"><div class="card p-3 card-menu border-start border-success border-4"><h6>Zakat Fitrah</h6><h4 class="fw-bold text-success" id="rekapZakatFitrah">Rp 0</h4></div></div>
+                    <div class="col-md-4"><div class="card p-3 card-menu border-start border-primary border-4"><h6>Infaq</h6><h4 class="fw-bold text-primary" id="rekapInfaq">Rp 0</h4></div></div>
+                    <div class="col-md-4"><div class="card p-3 card-menu border-start border-primary border-4"><h6>Shadaqah</h6><h4 class="fw-bold text-primary" id="rekapShadaqah">Rp 0</h4></div></div>
+                    
+                    <div class="col-md-4">
+                        <div class="card p-3 card-menu border-start border-warning border-4">
+                            <h6>Kencleng (Bersih 90%)</h6>
+                            <h4 class="fw-bold text-warning" id="rekapKencleng">Rp 0</h4>
+                            <small class="text-muted" id="rekapKenclengMuzaki">Hak Petugas (10%): Rp 0</small>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card p-3 card-menu bg-danger text-white shadow-sm">
-                            <div class="small text-uppercase fw-bold opacity-75"><i class="fa-solid fa-circle-arrow-up me-1"></i>Total Seluruh Pengeluaran</div>
-                            <h2 class="fw-bold mt-1" id="totalPengeluaran">Rp 0</h2>
-                        </div>
-                    </div>
+                    
+                    <div class="col-md-4"><div class="card p-3 card-menu border-start border-danger border-4"><h6>Qurban</h6><h4 class="fw-bold text-danger" id="rekapQurban">Rp 0</h4></div></div>
+                    
+                    <div class="col-md-6"><div class="card p-3 card-menu border-start border-info border-4"><h6>Amal Usaha: TPQ</h6><h4 class="fw-bold text-info" id="rekapTPQ">Rp 0</h4></div></div>
+                    <div class="col-md-6"><div class="card p-3 card-menu border-start border-info border-4"><h6>Amal Usaha: BA Al-Hidayah</h6><h4 class="fw-bold text-info" id="rekapBA">Rp 0</h4></div></div>
+                    
+                    <div class="col-md-6"><div class="card p-3 card-menu bg-success text-white"><h6>Total Seluruh Pemasukan</h6><h3 class="fw-bold" id="totalPemasukan">Rp 0</h3></div></div>
+                    <div class="col-md-6"><div class="card p-3 card-menu bg-danger text-white"><h6>Total Seluruh Pengeluaran</h6><h3 class="fw-bold" id="totalPengeluaran">Rp 0</h3></div></div>
                 </div>
             </div>
 
             <div class="tab-pane fade" id="admin-tab-pane">
                 
-                <div id="loginBox" class="row justify-content-center my-4">
+                <div id="loginBox" class="row justify-content-center">
                     <div class="col-md-5">
-                        <div class="card p-4 text-center shadow-sm card-menu border-top border-success border-4">
-                            <div class="bg-light d-inline-block rounded-circle p-3 mb-3">
-                                <i class="fa-solid fa-shield-halved text-success fs-1"></i>
-                            </div>
-                            <h5 class="fw-bold">Autentikasi Pengurus</h5>
-                            <p class="text-muted small">Silakan masukkan kode sandi administrator untuk membuka modul input keuangan.</p>
-                            <input type="password" id="sandiAdmin" class="form-control mb-3 text-center py-2" placeholder="Masukkan Sandi Keamanan">
-                            <button class="btn btn-success w-100 fw-bold py-2" onclick="cekSandi()"><i class="fa-solid fa-unlock me-2"></i>Buka Akses</button>
+                        <div class="card p-4 text-center shadow-sm card-menu">
+                            <i class="fa-solid fa-lock text-warning display-4 mb-3"></i>
+                            <h5 class="fw-bold">Akses Terbatas Admin</h5>
+                            <p class="text-muted small">Masukkan sandi untuk menginput kas keuangan</p>
+                            <input type="password" id="sandiAdmin" class="form-control mb-3 text-center" placeholder="Masukkan Sandi">
+                            <button class="btn btn-success w-100 fw-bold" onclick="cekSandi()"><i class="fa-solid fa-right-to-bracket me-2"></i>Masuk</button>
                         </div>
                     </div>
                 </div>
 
                 <div id="formBox" class="row justify-content-center hidden-section">
                     <div class="col-md-8">
-                        <div class="card p-4 shadow-sm card-menu border-top border-success border-4">
-                            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-                                <h4 class="fw-bold text-success mb-0"><i class="fa-solid fa-pen-to-square me-2"></i>Pencatatan Buku Kas Sinergi</h4>
-                                <button class="btn btn-sm btn-outline-danger px-3 rounded-pill" onclick="logoutAdmin()">Kunci Kembali <i class="fa-solid fa-lock"></i></button>
+                        <div class="card p-4 shadow-sm card-menu">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold text-success mb-0"><i class="fa-solid fa-pen-to-square me-2"></i>Form Transaksi Keuangan</h4>
+                                <button class="btn btn-sm btn-outline-danger" onclick="logoutAdmin()">Keluar <i class="fa-solid fa-sign-out"></i></button>
                             </div>
                             
                             <form id="formKeuangan">
                                 <div class="mb-3">
-                                    <label class="form-label fw-semibold">Jenis Arus Kas</label>
+                                    <label class="form-label fw-semibold">Jenis Transaksi</label>
                                     <div class="d-flex gap-3">
                                         <input type="radio" class="btn-check" name="jenis" id="jenisMasuk" value="Pemasukan" checked onclick="sesuaikanForm()">
-                                        <label class="btn btn-outline-success w-50 fw-bold py-2" for="jenisMasuk"><i class="fa-solid fa-folder-plus me-2"></i>Dana Masuk (Pemasukan)</label>
+                                        <label class="btn btn-outline-success w-50 fw-bold" for="jenisMasuk"><i class="fa-solid fa-arrow-down-long me-2"></i>Uang Masuk</label>
 
                                         <input type="radio" class="btn-check" name="jenis" id="jenisKeluar" value="Pengeluaran" onclick="sesuaikanForm()">
-                                        <label class="btn btn-outline-danger w-50 fw-bold py-2" for="jenisKeluar"><i class="fa-solid fa-folder-minus me-2"></i>Dana Keluar (Pengeluaran)</label>
+                                        <label class="btn btn-outline-danger w-50 fw-bold" for="jenisKeluar"><i class="fa-solid fa-arrow-up-long me-2"></i>Uang Keluar</label>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="kategori" class="form-label fw-semibold">Pintu / Kategori Program</label>
-                                    <select class="form-select py-2" id="kategori" onchange="cekKategori()" required>
-                                        <option value="" disabled selected>-- Pilih Kategori Dana --</option>
+                                    <label for="kategori" class="form-label fw-semibold">Kategori Dana</label>
+                                    <select class="form-select" id="kategori" onchange="cekKategori()" required>
+                                        <option value="" disabled selected>-- Pilih Kategori --</option>
                                         <option value="Zakat Mal">Zakat Mal</option>
                                         <option value="Zakat Fitrah">Zakat Fitrah</option>
                                         <option value="Infaq">Infaq</option>
@@ -241,59 +127,57 @@
                                 </div>
 
                                 <div class="mb-3" id="boxPenyetor">
-                                    <label for="penyetor" class="form-label fw-semibold">Nama Petugas Lapangan (Penyetor/Penarik)</label>
-                                    <select class="form-select py-2" id="penyetor" onchange="cekPenyetorLainnya()">
-                                        <option value="" disabled selected>-- Pilih Nama Petugas Resmi --</option>
-                                        <option value="Petugas 1">Bawon</option>
-                                        <option value="Petugas 2">Mega</option>
-                                        <option value="Petugas 3">Sri & Imah</option>
-                                        <option value="Petugas 4">Tatik</option>
-                                        <option value="Petugas 5">Slamet</option>
-                                        <option value="Petugas 6">Restiyana</option>
-                                        <option value="Petugas 7">Farah</option>
-                                        <option value="Petugas 8">Lis & Sih</option>
-                                        <option value="Petugas 9">Endang & Uti</option>
-                                        <option value="Petugas 10">Neva</option>
-                                        <option value="Petugas 11">Yahya</option>
-                                        <option value="Petugas 12">Udi</option>
-                                        <option value="Petugas 13">Muhyasir</option>
-                                        <option value="Petugas 14">Juji</option>
-                                        <option value="Petugas 15">Petugas 15</option>
-                                        <option value="Lain-lain">Lain-lain (Petugas Pengganti / Orang Lain)</option>
+                                    <label for="penyetor" class="form-label fw-semibold">Nama Petugas Penyetor / Penarik</label>
+                                    <select class="form-select" id="penyetor" onchange="cekPenyetorLainnya()">
+                                        <option value="" disabled selected>-- Pilih Nama Petugas --</option>
+                                        <option value="Petugas 1">Ahmad</option>
+                                        <option value="Petugas 2">Budi</option>
+                                        <option value="Petugas 3">Chandra</option>
+                                        <option value="Petugas 4">Dani</option>
+                                        <option value="Petugas 5">Eko</option>
+                                        <option value="Petugas 6">Fahmi</option>
+                                        <option value="Petugas 7">Gani</option>
+                                        <option value="Petugas 8">Hasan</option>
+                                        <option value="Petugas 9">Irfan</option>
+                                        <option value="Petugas 10">Joko</option>
+                                        <option value="Petugas 11">Kurniawan</option>
+                                        <option value="Petugas 12">Lukman</option>
+                                        <option value="Petugas 13">Maman</option>
+                                        <option value="Petugas 14">Naufal</option>
+                                        <option value="Petugas 15">Oki</option>
+                                        <option value="Lain-lain">Lain-lain (Ketik Nama Manual)</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-3 hidden-section" id="boxPenyetorLainnya">
-                                    <label for="penyetorLainnya" class="form-label fw-semibold text-danger"><i class="fa-solid fa-user-pen me-1"></i> Tulis Nama Lengkap Pengganti</label>
-                                    <input type="text" class="form-control py-2" id="penyetorLainnya" placeholder="Masukkan nama lengkap personil pengganti">
+                                    <label for="penyetorLainnya" class="form-label fw-semibold text-danger">Tulis Nama Petugas Pengganti / Lainnya</label>
+                                    <input type="text" class="form-control border-danger" id="penyetorLainnya" placeholder="Masukkan nama lengkap petugas baru">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="nominal" class="form-label fw-semibold">Nominal Transaksi (Rp)</label>
-                                    <input type="number" class="form-control py-2" id="nominal" oninput="hitungSimulasiKencleng()" placeholder="Contoh: 150000 (Tanpa tanda titik atau koma)" required>
+                                    <label for="nominal" class="form-label fw-semibold">Nominal Uang (Rp)</label>
+                                    <input type="number" class="form-control" id="nominal" oninput="hitungSimulasiKencleng()" placeholder="Masukkan angka saja" required>
                                     
                                     <div id="simulasiKencleng" class="alert alert-warning mt-2 small p-2 hidden-section">
-                                        <div class="fw-bold text-dark"><i class="fa-solid fa-calculator me-1"></i> Pembagian Akuntansi Otomatis (90% : 10%):</div>
-                                        <div class="ps-3 mt-1">
-                                            • Alokasi Bersih Kas LazisMu (90%): <b id="simMasuk" class="text-success">Rp 0</b><br>
-                                            • Alokasi Hak Amil / Penarik (10%): <b id="simHak" class="text-danger">Rp 0</b>
-                                        </div>
+                                        <i class="fa-solid fa-calculator me-1"></i> Pembagian otomatis (90%:10%):<br>
+                                        • Masuk Kas LazisMu: <b id="simMasuk">Rp 0</b><br>
+                                        • Hak Penarik Kencleng: <b id="simHak">Rp 0</b>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <label for="tanggal" class="form-label fw-semibold">Tanggal Buku Transaksi</label>
-                                        <input type="date" class="form-control py-2" id="tanggal" required>
+                                        <label for="tanggal" class="form-label fw-semibold">Tanggal</label>
+                                        <input type="date" class="form-control" id="tanggal" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="keterangan" class="form-label fw-semibold">Keterangan / Berita Acara</label>
-                                        <input type="text" class="form-control py-2" id="keterangan" placeholder="Misal: Infaq Jumat Legi, Pengeluaran ATK, dll">
+                                        <label for="keterangan" class="form-label fw-semibold">Keterangan / Catatan</label>
+                                        <input type="text" class="form-control" id="keterangan" placeholder="cth: Infaq bulanan, Pengeluaran ATK, dll">
                                     </div>
                                 </div>
 
-                                <div class="d-grid mt-3">
-                                    <button type="submit" class="btn btn-success btn-lg fw-bold py-2"><i class="fa-solid fa-cloud-arrow-up me-2"></i>Validasi & Simpan Transaksi</button>
+                                <div class="d-grid mt-2">
+                                    <button type="submit" class="btn btn-success btn-lg fw-bold"><i class="fa-solid fa-paper-plane me-2"></i>Simpan Transaksi</button>
                                 </div>
                             </form>
                         </div>
@@ -304,76 +188,57 @@
         </div>
     </div>
 
-    <footer class="bg-dark text-white-50 text-center py-3 mt-5">
-        <div class="container small">
-            <p class="mb-1 text-white fw-bold">&copy; 2026 KL LazisMu Gembyang — Ortom Kentengsari</p>
-            <p class="mb-0">Sistem ini terintegrasi penuh ke Google Sheets Cloud Penyimpanan.</p>
-        </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2026 KL LazisMu Gembyang - Ortom Kentengsari.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
     <script>
         // =========================================================================
-        // PENTING: GANTI TEKS DI BAWAH INI DENGAN URL WEB APP YANG ANDA SALIN TADI!
+        // PENTING: GANTI TEKS DI BAWAH INI DENGAN URL WEB APP DARI APPS SCRIPT ANDA
         // =========================================================================
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQGYlVP8vevK_YNsPLAxzPcPj2Ng1ep_7jYu1v7HugaqQu_eyPOtGfG5Fd3MddS7PD/exec";
 
-        // Fungsi Memuat Data dari Google Sheets otomatis saat halaman dibuka / difilter
+        // Fungsi Memuat Data dari Google Sheets otomatis saat halaman dibuka
         async function muatDataRekap(tahun = "2026") {
-            const elemenNilai = ['rekapZakatMal', 'rekapZakatFitrah', 'rekapInfaq', 'rekapShadaqah', 'rekapKencleng', 'totalPemasukan', 'totalPengeluaran', 'rekapTPQ', 'rekapBA'];
-            elemenNilai.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) el.style.opacity = "0.5";
-            });
-
+            if (SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") return;
             try {
                 const response = await fetch(`${SCRIPT_URL}?tahun=${tahun}`);
                 const data = await response.json();
                 
-                // Distribusikan nilai mata uang hasil hitungan Apps Script ke dashboard website
-                document.getElementById('rekapZakatMal').innerText = "Rp " + data["Zakat Mal"].toLocaleString('id-ID');
-                document.getElementById('rekapZakatFitrah').innerText = "Rp " + data["Zakat Fitrah"].toLocaleString('id-ID');
-                document.getElementById('rekapInfaq').innerText = "Rp " + data["Infaq"].toLocaleString('id-ID');
-                document.getElementById('rekapShadaqah').innerText = "Rp " + data["Shadaqah"].toLocaleString('id-ID');
-                document.getElementById('rekapKencleng').innerText = "Rp " + data["Kencleng"].toLocaleString('id-ID');
-                document.getElementById('rekapKenclengMuzaki').innerHTML = `<i class="fa-solid fa-hand-holding-heart me-1"></i>Hak Petugas (10%): Rp ` + data["HakPenarik"].toLocaleString('id-ID');
-                document.getElementById('rekapQurban').innerText = "Rp " + data["Qurban"].toLocaleString('id-ID');
-                document.getElementById('rekapTPQ').innerText = "Rp " + data["TPQ"].toLocaleString('id-ID');
-                document.getElementById('rekapBA').innerText = "Rp " + data["BA Al-Hidayah"].toLocaleString('id-ID');
+                document.getElementById('rekapZakatMal').innerText = "Rp " + (data["Zakat Mal"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapZakatFitrah').innerText = "Rp " + (data["Zakat Fitrah"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapInfaq').innerText = "Rp " + (data["Infaq"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapShadaqah').innerText = "Rp " + (data["Shadaqah"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapKencleng').innerText = "Rp " + (data["Kencleng"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapKenclengMuzaki').innerText = "Hak Petugas (10%): Rp " + (data["HakPenarik"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapQurban').innerText = "Rp " + (data["Qurban"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapTPQ').innerText = "Rp " + (data["TPQ"] || 0).toLocaleString('id-ID');
+                document.getElementById('rekapBA').innerText = "Rp " + (data["BA Al-Hidayah"] || 0).toLocaleString('id-ID');
                 
-                document.getElementById('totalPemasukan').innerText = "Rp " + data.TotalPemasukan.toLocaleString('id-ID');
-                document.getElementById('totalPengeluaran').innerText = "Rp " + data.TotalPengeluaran.toLocaleString('id-ID');
+                document.getElementById('totalPemasukan').innerText = "Rp " + (data.TotalPemasukan || 0).toLocaleString('id-ID');
+                document.getElementById('totalPengeluaran').innerText = "Rp " + (data.TotalPengeluaran || 0).toLocaleString('id-ID');
             } catch (error) {
-                console.error("Gagal memuat data keuangan dari cloud:", error);
-            } finally {
-                elemenNilai.forEach(id => {
-                    const el = document.getElementById(id);
-                    if(el) el.style.opacity = "1";
-                });
+                console.error("Gagal memuat data keuangan:", error);
             }
         }
 
-        // Jalankan pemuatan rekap tahun berjalan otomatis saat halaman di-refresh
         window.onload = function() {
             document.getElementById('tanggal').valueAsDate = new Date();
-            const tahunSekarang = new Date().getFullYear().toString();
-            const filterEl = document.getElementById('filterTahun');
-            if([...filterEl.options].some(o => o.value === tahunSekarang)) {
-                filterEl.value = tahunSekarang;
+            sesuaikanForm();
+            if (SCRIPT_URL !== "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
+                muatDataRekap("2026");
             }
-            muatDataRekap(filterEl.value);
         };
 
-        // 1. LOGIKA KEAMANAN AKSES ADMIN (Sandi bawaan: admin123)
+        // LOGIN ADMIN (Password bawaan: admin123)
         function cekSandi() {
             const sandi = document.getElementById('sandiAdmin').value;
-            if(sandi === "admin123") { 
+            if(sandi === "admin123") {
                 document.getElementById('loginBox').classList.add('hidden-section');
                 document.getElementById('formBox').classList.remove('hidden-section');
-                sesuaikanForm();
             } else {
-                alert("Kode sandi salah! Akses ditolak. Hubungi pimpinan KL LazisMu Gembyang.");
+                alert("Sandi salah! Silakan coba lagi.");
             }
         }
         function logoutAdmin() {
@@ -382,26 +247,26 @@
             document.getElementById('formBox').classList.add('hidden-section');
         }
 
-        // 2. KONDISIONAL ELEMEN FORM JIKA PEMASUKAN vs PENGELUARAN
+        // KONDISIONAL FORM PEMASUKAN VS PENGELUARAN
         function sesuaikanForm() {
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            const boxPenyetor = document.getElementById('boxPenyetor');
-            const penyetorInput = document.getElementById('penyetor');
+            const penyetorSelect = document.getElementById('penyetor');
             
             if (jenis === "Pengeluaran") {
-                boxPenyetor.classList.add('hidden-section');
-                penyetorInput.removeAttribute('required');
+                document.getElementById('boxPenyetor').classList.add('hidden-section');
                 document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
+                penyetorSelect.removeAttribute('required');
+                document.getElementById('penyetorLainnya').removeAttribute('required');
                 document.getElementById('simulasiKencleng').classList.add('hidden-section');
             } else {
-                boxPenyetor.classList.remove('hidden-section');
-                penyetorInput.setAttribute('required', 'required');
-                cekKategori();
+                document.getElementById('boxPenyetor').classList.remove('hidden-section');
+                penyetorSelect.setAttribute('required', 'required');
                 cekPenyetorLainnya();
+                cekKategori();
             }
         }
 
-        // 3. IDENTIFIKASI DINAMIS KATEGORI PROGRAM & SIMULASI HITUNGAN KENCLENG
+        // KONDISIONAL KATEGORI KENCLENG
         function cekKategori() {
             const kategori = document.getElementById('kategori').value;
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
@@ -413,16 +278,21 @@
             }
         }
 
+        // OPSI PETUGAS LAIN-LAIN (KETIK MANUAL)
         function cekPenyetorLainnya() {
-            const penyetor = document.getElementById('penyetor').value;
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
-            
-            if(penyetor === "Lain-lain" && jenis === "Pemasukan") {
-                document.getElementById('boxPenyetorLainnya').classList.remove('hidden-section');
-                document.getElementById('penyetorLainnya').setAttribute('required', 'required');
+            if (jenis === "Pengeluaran") return;
+
+            const penyetor = document.getElementById('penyetor').value;
+            const boxLainnya = document.getElementById('boxPenyetorLainnya');
+            const inputLainnya = document.getElementById('penyetorLainnya');
+
+            if(penyetor === "Lain-lain") {
+                boxLainnya.classList.remove('hidden-section');
+                inputLainnya.setAttribute('required', 'required');
             } else {
-                document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
-                document.getElementById('penyetorLainnya').removeAttribute('required');
+                boxLainnya.classList.add('hidden-section');
+                inputLainnya.removeAttribute('required');
             }
         }
 
@@ -437,33 +307,40 @@
             }
         }
 
-        // 4. PEMICU FILTER TAHUNAN AKTIF
         function filterDataTahunan() {
             const tahun = document.getElementById('filterTahun').value;
-            muatDataRekap(tahun);
+            if (SCRIPT_URL !== "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
+                muatDataRekap(tahun);
+            } else {
+                alert("Mencoba melihat tahun " + tahun + ". Pastikan SCRIPT_URL sudah diisi agar data asli muncul.");
+            }
         }
 
-        // 5. PROSES PENGIRIMAN DATA FORM KE APPS SCRIPT GOOGLE SHEETS
+        // SIMPAN DATA KE GOOGLE SHEETS
         document.getElementById('formKeuangan').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            if(SCRIPT_URL === "MASUKKAN_URL_WEB_APP_BARU_ANDA_DI_SINI" || SCRIPT_URL === "") {
-                alert("Gagal mengirim! Anda belum memasukkan URL Web App dari Google Apps Script ke dalam kode index.html pada baris ke-307.");
+            if (SCRIPT_URL === "TEMPEL_URL_WEB_APP_ANDA_DISINI") {
+                alert("Gagal: Anda belum memasukkan URL Web App Google Sheets Anda pada kode SCRIPT_URL!");
                 return;
             }
 
             const btnSubmit = e.target.querySelector('button[type="submit"]');
             const teksAwal = btnSubmit.innerHTML;
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim Data Ke Cloud Sheets...`;
+            btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...`;
 
             const jenis = document.querySelector('input[name="jenis"]:checked').value;
             let namaPenyetor = "-";
-            
-            if(jenis === "Pemasukan") {
-                namaPenyetor = document.getElementById('penyetor').value;
-                if (namaPenyetor === "Lain-lain") {
+
+            if (jenis === "Pemasukan") {
+                const penyetorSelect = document.getElementById('penyetor').value;
+                if (penyetorSelect === "Lain-lain") {
                     namaPenyetor = document.getElementById('penyetorLainnya').value;
+                } else {
+                    // Mengambil teks nama asli di dalam drop-down, bukan value kodenya
+                    const selectEl = document.getElementById('penyetor');
+                    namaPenyetor = selectEl.options[selectEl.selectedIndex].text;
                 }
             }
 
@@ -484,19 +361,20 @@
                 const hasil = await response.json();
 
                 if (hasil.status === "success") {
-                    alert("Alhamdulillah, Data Keuangan Berhasil Disimpan Permanen!");
+                    alert("Alhamdulillah, Data Transaksi Berhasil Disimpan!");
                     document.getElementById('formKeuangan').reset();
                     document.getElementById('tanggal').valueAsDate = new Date();
                     document.getElementById('simulasiKencleng').classList.add('hidden-section');
                     document.getElementById('boxPenyetorLainnya').classList.add('hidden-section');
                     
-                    // Segera sinkronkan ulang angka di halaman utama
-                    filterDataTahunan();
+                    // Segarkan angka dashboard otomatis mengikuti tahun terpilih
+                    const tahunSekarang = document.getElementById('filterTahun').value;
+                    muatDataRekap(tahunSekarang);
                 } else {
-                    alert("Gagal menyimpan data: " + hasil.message);
+                    alert("Gagal menyimpan: " + hasil.message);
                 }
             } catch (error) {
-                alert("Terjadi gangguan jaringan / Masalah Otorisasi Web App. Pastikan setelan akses Apps Script diset ke 'Anyone'.\\n\\nDetail: " + error.message);
+                alert("Terjadi kesalahan koneksi/jaringan: " + error.message);
             } finally {
                 btnSubmit.disabled = false;
                 btnSubmit.innerHTML = teksAwal;
